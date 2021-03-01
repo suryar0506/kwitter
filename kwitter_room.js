@@ -11,10 +11,29 @@ var firebaseConfig = {
     };
     firebase.initializeApp(firebaseConfig);
 
+var users_name = localStorage.getItem("User's Name : ");
+document.getElementById("user_name").innerHTML = "Welcome, " + users_name + "!";
+
+
+function addRoom(){
+      var room_name = document.getElementById("create_room").value;
+      localStorage.setItem("Room Name : ",room_name);
+      firebase.database().ref("/").child(room_name).update({
+            purpose : "adding room name"
+      });
+      window.location = "kwitter_page.html";
+}
+
 function getData() {firebase.database().ref("/").on('value', function(snapshot) {document.getElementById("output").innerHTML = "";snapshot.forEach(function(childSnapshot) {childKey  = childSnapshot.key;
        Room_names = childKey;
       //Start code
-
+console.log("Room Names - " + Room_names);
+row = "<div class = 'room_name' id = "+Room_names+" onclick = 'redirectToRoomName(this.id)' >#" + Room_names + "</div></hr>";
+document.getElementById("output").innerHTML += row;
       //End code
       });});}
 getData();
+function redirectToRoomName(name){
+localStorage.setItem("room_name",name);
+window.location = "kwitter_page.html";
+}
