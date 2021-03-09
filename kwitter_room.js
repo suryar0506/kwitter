@@ -34,6 +34,11 @@ document.getElementById("output").innerHTML += row;
       });});}
 getData();
 function redirectToRoomName(name){
-localStorage.setItem("room_name",name);
+localStorage.setItem("Room Name : ",name);
 window.location = "kwitter_page.html";
 }
+function logOut(){
+      localStorage.removeItem("User's Name : ");
+      localStorage.removeItem("Room Name : ");
+      window.location = "index.html";
+ }
